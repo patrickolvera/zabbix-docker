@@ -19,19 +19,19 @@ services:
   depends_on:
    - zabbix-build-base
 
- zabbix-build-sqlite3:
-  build:
-   context: ./Dockerfiles/build-sqlite3/${ALPINE_OS_TAG_SHORT}
-   cache_from:
-    - "${ALPINE_CACHE_FROM}"
-   args:
-    BUILD_BASE_IMAGE: ${BUILD_BASE_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-  image: ${BUILD_BASE_SQLITE3_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-  attach: false
-  profiles:
-   - all
-  depends_on:
-   - zabbix-build-base
+#  zabbix-build-sqlite3:
+#   build:
+#    context: ./Dockerfiles/build-sqlite3/${ALPINE_OS_TAG_SHORT}
+#    cache_from:
+#     - "${ALPINE_CACHE_FROM}"
+#    args:
+#     BUILD_BASE_IMAGE: ${BUILD_BASE_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+#   image: ${BUILD_BASE_SQLITE3_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+#   attach: false
+#   profiles:
+#    - all
+#   depends_on:
+#    - zabbix-build-base
 
  zabbix-server:
   extends:
@@ -52,23 +52,23 @@ services:
   labels:
    com.zabbix.os: "${ALPINE_OS_TAG}"
 
- zabbix-proxy-sqlite3:
-  extends:
-   file: compose_zabbix_components.yaml
-   service: proxy-sqlite3
-  build:
-   context: ./Dockerfiles/proxy-sqlite3/${ALPINE_OS_TAG_SHORT}
-   cache_from:
-    - "${ALPINE_CACHE_FROM}"
-   args:
-    BUILD_BASE_IMAGE: ${BUILD_BASE_SQLITE3_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-  image: zabbix-proxy-sqlite3:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-  volumes:
-   - /etc/timezone:/etc/timezone:ro
-  depends_on:
-   - zabbix-build-sqlite3
-  labels:
-   com.zabbix.os: "${ALPINE_OS_TAG}"
+#  zabbix-proxy-sqlite3:
+#   extends:
+#    file: compose_zabbix_components.yaml
+#    service: proxy-sqlite3
+#   build:
+#    context: ./Dockerfiles/proxy-sqlite3/${ALPINE_OS_TAG_SHORT}
+#    cache_from:
+#     - "${ALPINE_CACHE_FROM}"
+#    args:
+#     BUILD_BASE_IMAGE: ${BUILD_BASE_SQLITE3_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+#   image: zabbix-proxy-sqlite3:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+#   volumes:
+#    - /etc/timezone:/etc/timezone:ro
+#   depends_on:
+#    - zabbix-build-sqlite3
+#   labels:
+#    com.zabbix.os: "${ALPINE_OS_TAG}"
 
  zabbix-proxy-mysql:
   extends:
@@ -108,24 +108,24 @@ services:
   labels:
    com.zabbix.os: "${ALPINE_OS_TAG}"
 
- zabbix-web-nginx-mysql:
-  extends:
-   file: compose_zabbix_components.yaml
-   service: web-nginx-mysql
-  build:
-   context: ./Dockerfiles/web-nginx-mysql/${ALPINE_OS_TAG_SHORT}
-   cache_from:
-    - "${ALPINE_CACHE_FROM}"
-   args:
-    BUILD_BASE_IMAGE: ${BUILD_BASE_MYSQL_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-  image: zabbix-web-nginx-mysql:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-  volumes:
-   - /etc/timezone:/etc/timezone:ro
-  depends_on:
-   - mysql-server
-   - zabbix-build-mysql
-  labels:
-   com.zabbix.os: "${ALPINE_OS_TAG}"
+#  zabbix-web-nginx-mysql:
+#   extends:
+#    file: compose_zabbix_components.yaml
+#    service: web-nginx-mysql
+#   build:
+#    context: ./Dockerfiles/web-nginx-mysql/${ALPINE_OS_TAG_SHORT}
+#    cache_from:
+#     - "${ALPINE_CACHE_FROM}"
+#    args:
+#     BUILD_BASE_IMAGE: ${BUILD_BASE_MYSQL_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+#   image: zabbix-web-nginx-mysql:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+#   volumes:
+#    - /etc/timezone:/etc/timezone:ro
+#   depends_on:
+#    - mysql-server
+#    - zabbix-build-mysql
+#   labels:
+#    com.zabbix.os: "${ALPINE_OS_TAG}"
 
  zabbix-agent:
   extends:
@@ -145,21 +145,21 @@ services:
   labels:
    com.zabbix.os: "${ALPINE_OS_TAG}"
 
- zabbix-java-gateway:
-  extends:
-   file: compose_zabbix_components.yaml
-   service: java-gateway
-  build:
-   context: ./Dockerfiles/java-gateway/${ALPINE_OS_TAG_SHORT}
-   cache_from:
-    - "${ALPINE_CACHE_FROM}"
-   args:
-    BUILD_BASE_IMAGE: ${BUILD_BASE_MYSQL_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-  image: zabbix-java-gateway:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-  depends_on:
-   - zabbix-build-mysql
-  labels:
-   com.zabbix.os: "${ALPINE_OS_TAG}"
+#  zabbix-java-gateway:
+#   extends:
+#    file: compose_zabbix_components.yaml
+#    service: java-gateway
+#   build:
+#    context: ./Dockerfiles/java-gateway/${ALPINE_OS_TAG_SHORT}
+#    cache_from:
+#     - "${ALPINE_CACHE_FROM}"
+#    args:
+#     BUILD_BASE_IMAGE: ${BUILD_BASE_MYSQL_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+#   image: zabbix-java-gateway:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+#   depends_on:
+#    - zabbix-build-mysql
+#   labels:
+#    com.zabbix.os: "${ALPINE_OS_TAG}"
 
  zabbix-snmptraps:
   extends:
