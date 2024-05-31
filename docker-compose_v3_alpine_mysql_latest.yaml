@@ -11,15 +11,15 @@ services:
   labels:
    com.zabbix.os: "${ALPINE_OS_TAG}"
 
- zabbix-proxy-sqlite3:
-  extends:
-   file: compose_zabbix_components.yaml
-   service: proxy-sqlite3
-  image: "${ZABBIX_PROXY_SQLITE3_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_IMAGE_TAG_POSTFIX}"
-  volumes:
-   - /etc/timezone:/etc/timezone:ro
-  labels:
-   com.zabbix.os: "${ALPINE_OS_TAG}"
+#  zabbix-proxy-sqlite3:
+#   extends:
+#    file: compose_zabbix_components.yaml
+#    service: proxy-sqlite3
+#   image: "${ZABBIX_PROXY_SQLITE3_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_IMAGE_TAG_POSTFIX}"
+#   volumes:
+#    - /etc/timezone:/etc/timezone:ro
+#   labels:
+#    com.zabbix.os: "${ALPINE_OS_TAG}"
 
  zabbix-proxy-mysql:
   extends:
@@ -45,17 +45,17 @@ services:
   labels:
    com.zabbix.os: "${ALPINE_OS_TAG}"
 
- zabbix-web-nginx-mysql:
-  extends:
-   file: compose_zabbix_components.yaml
-   service: web-nginx-mysql
-  image: "${ZABBIX_WEB_NGINX_MYSQL_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_IMAGE_TAG_POSTFIX}"
-  volumes:
-   - /etc/timezone:/etc/timezone:ro
-  depends_on:
-   - mysql-server
-  labels:
-   com.zabbix.os: "${ALPINE_OS_TAG}"
+#  zabbix-web-nginx-mysql:
+#   extends:
+#    file: compose_zabbix_components.yaml
+#    service: web-nginx-mysql
+#   image: "${ZABBIX_WEB_NGINX_MYSQL_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_IMAGE_TAG_POSTFIX}"
+#   volumes:
+#    - /etc/timezone:/etc/timezone:ro
+#   depends_on:
+#    - mysql-server
+#   labels:
+#    com.zabbix.os: "${ALPINE_OS_TAG}"
 
  zabbix-agent:
   extends:
@@ -67,13 +67,13 @@ services:
   labels:
    com.zabbix.os: "${ALPINE_OS_TAG}"
 
- zabbix-java-gateway:
-  extends:
-   file: compose_zabbix_components.yaml
-   service: java-gateway
-  image: "${ZABBIX_JAVA_GATEWAY_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_IMAGE_TAG_POSTFIX}"
-  labels:
-   com.zabbix.os: "${ALPINE_OS_TAG}"
+#  zabbix-java-gateway:
+#   extends:
+#    file: compose_zabbix_components.yaml
+#    service: java-gateway
+#   image: "${ZABBIX_JAVA_GATEWAY_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_IMAGE_TAG_POSTFIX}"
+#   labels:
+#    com.zabbix.os: "${ALPINE_OS_TAG}"
 
  zabbix-snmptraps:
   extends:
