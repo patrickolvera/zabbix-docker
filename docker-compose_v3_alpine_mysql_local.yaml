@@ -108,24 +108,24 @@ services:
   labels:
    com.zabbix.os: "${ALPINE_OS_TAG}"
 
-#  zabbix-web-nginx-mysql:
-#   extends:
-#    file: compose_zabbix_components.yaml
-#    service: web-nginx-mysql
-#   build:
-#    context: ./Dockerfiles/web-nginx-mysql/${ALPINE_OS_TAG_SHORT}
-#    cache_from:
-#     - "${ALPINE_CACHE_FROM}"
-#    args:
-#     BUILD_BASE_IMAGE: ${BUILD_BASE_MYSQL_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-#   image: zabbix-web-nginx-mysql:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
-#   volumes:
-#    - /etc/timezone:/etc/timezone:ro
-#   depends_on:
-#    - mysql-server
-#    - zabbix-build-mysql
-#   labels:
-#    com.zabbix.os: "${ALPINE_OS_TAG}"
+ zabbix-web-nginx-mysql:
+  extends:
+   file: compose_zabbix_components.yaml
+   service: web-nginx-mysql
+  build:
+   context: ./Dockerfiles/web-nginx-mysql/${ALPINE_OS_TAG_SHORT}
+   cache_from:
+    - "${ALPINE_CACHE_FROM}"
+   args:
+    BUILD_BASE_IMAGE: ${BUILD_BASE_MYSQL_IMAGE}:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+  image: zabbix-web-nginx-mysql:${ZABBIX_ALPINE_IMAGE_TAG}${ZABBIX_LOCAL_IMAGE_TAG_POSTFIX}
+  volumes:
+   - /etc/timezone:/etc/timezone:ro
+  depends_on:
+   - mysql-server
+   - zabbix-build-mysql
+  labels:
+   com.zabbix.os: "${ALPINE_OS_TAG}"
 
  zabbix-agent:
   extends:
